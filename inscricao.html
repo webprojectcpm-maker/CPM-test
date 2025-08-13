@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrever seu time - CPM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inscricao.css">
+</head>
+<body>
+    <header class="header scrolled">
+        <div class="header-container">
+            <div class="logo">
+                <img src="cpm.png" alt="CPM - Campeonato Paulista de MamoBall" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-subtitle">Campeonato Paulista de MamoBall</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="back-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                    <span>Voltar</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="inscription-main">
+        <div class="container">
+            <div class="inscription-header">
+                <div class="inscription-badge">
+                    <span>🏆 Temporada 2025</span>
+                </div>
+                <h1 class="inscription-title">Inscrever seu time</h1>
+                <p class="inscription-subtitle">
+                    Preencha os dados do clube, carregue a logo e adicione entre 6 e 10 jogadores para participar da CPM.
+                </p>
+            </div>
+
+            <form id="teamForm" class="inscription-form" novalidate>
+                <div class="form-grid">
+                    <!-- Coluna Esquerda: Upload da Logo -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2>Logo do Clube</h2>
+                            <p>Carregue a logo oficial do seu time</p>
+                        </div>
+                        
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-content">
+                                <div class="upload-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7,10 12,15 17,10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                </div>
+                                <div class="upload-text">
+                                    <h3>Selecione uma imagem</h3>
+                                    <p>PNG, JPG ou WebP • Máximo 5MB</p>
+                                </div>
+                                <button type="button" class="upload-btn" id="chooseFile">
+                                    Escolher arquivo
+                                </button>
+                            </div>
+                            
+                            <div class="upload-preview" id="uploadPreview" style="display: none;">
+                                <img id="logoPreview" alt="Preview da logo" class="preview-image">
+                                <div class="preview-actions">
+                                    <button type="button" class="preview-btn" id="changeFile">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 2v6h-6"/>
+                                            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+                                            <path d="M3 22v-6h6"/>
+                                            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+                                        </svg>
+                                        Alterar
+                                    </button>
+                                    <button type="button" class="preview-btn danger" id="removeFile">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3,6 5,6 21,6"/>
+                                            <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                        </svg>
+                                        Remover
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Logo do clube" style="display: none;" />
+                            <div id="logoError" class="error-message" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Dados do Clube -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2>Dados do Clube</h2>
+                            <p>Informações administrativas do time</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clubName" class="form-label">
+                                Nome do Clube <span class="required">*</span>
+                            </label>
+                            <input 
+                                id="clubName" 
+                                name="name" 
+                                type="text" 
+                                class="form-input" 
+                                placeholder="Digite o nome do seu clube"
+                                required 
+                            />
+                            <div id="clubNameError" class="error-message" style="display: none;"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Administradores</label>
+                            <div class="admin-grid">
+                                <div class="form-group">
+                                    <label for="owner" class="form-label">
+                                        Dono <span class="required">*</span>
+                                    </label>
+                                    <input 
+                                        id="owner" 
+                                        name="owner" 
+                                        type="text" 
+                                        class="form-input" 
+                                        placeholder="Nome do dono"
+                                        required 
+                                    />
+                                    <div id="ownerError" class="error-message" style="display: none;"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="captain" class="form-label">
+                                        Capitão <span class="required">*</span>
+                                    </label>
+                                    <input 
+                                        id="captain" 
+                                        name="captain" 
+                                        type="text" 
+                                        class="form-input" 
+                                        placeholder="Nome do capitão"
+                                        required 
+                                    />
+                                    <div id="captainError" class="error-message" style="display: none;"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="coach" class="form-label">
+                                        Técnico <span class="optional">(opcional)</span>
+                                    </label>
+                                    <input 
+                                        id="coach" 
+                                        name="coach" 
+                                        type="text" 
+                                        class="form-input" 
+                                        placeholder="Nome do técnico"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes" class="form-label">
+                                Observações <span class="optional">(opcional)</span>
+                            </label>
+                            <textarea 
+                                id="notes" 
+                                name="notes" 
+                                class="form-textarea" 
+                                placeholder="Informações adicionais sobre o time..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção de Jogadores -->
+                <div class="form-section players-section">
+                    <div class="section-header">
+                        <div class="section-title-group">
+                            <h2>Jogadores</h2>
+                            <span class="players-counter" id="playersCounter">0 de 10</span>
+                        </div>
+                        <p>Adicione entre 6 e 10 jogadores ao seu time</p>
+                    </div>
+
+                    <div class="players-container">
+                        <div id="players" class="players-list"></div>
+                        
+                        <div class="players-actions">
+                            <button type="button" class="add-player-btn" id="addPlayer">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                Adicionar jogador
+                            </button>
+                            <span class="players-hint">Mínimo 6, máximo 10 jogadores</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensagens de erro -->
+                <div id="formError" class="form-error" style="display: none;"></div>
+
+                <!-- Ações do formulário -->
+                <div class="form-actions">
+                    <div class="form-info">
+                        <p>Ao enviar, seus dados serão recebidos e analisados pela nossa equipe.</p>
+                        <a href="#" class="privacy-link">Política de privacidade</a>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">Enviar inscrição</span>
+                        <div class="btn-spinner" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12a9 9 0 11-6.219-8.56"/>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Modal de sucesso -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon success">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20,6 9,17 4,12"/>
+                    </svg>
+                </div>
+                <h2 id="modalTitle" class="modal-title">Inscrição enviada!</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalMsg" class="modal-message">
+                    Seus dados foram recebidos e estão sendo analisados. Você receberá um e-mail com mais informações em breve.
+                </p>
+            </div>
+            <div class="modal-actions">
+                <a href="index.html" class="modal-btn primary">Voltar à página principal</a>
+                <button id="closeModal" class="modal-btn secondary">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
